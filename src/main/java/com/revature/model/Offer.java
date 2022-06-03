@@ -6,8 +6,10 @@ public class Offer {
     }
 
     private Status status;
+    private float amount;
 
-    Offer(Offer.Status status){
+    Offer(Offer.Status status, float amount){
         this.status = status;
+        this.amount = amount;
     }
 }

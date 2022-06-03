@@ -9,7 +9,7 @@ public class Driver {
 
 
 
-        User u = new User(User.Role.CUSTOMER);
+        User u = new User(User.Role.CUSTOMER, "TestUser");
         System.out.println("test");
 
     }

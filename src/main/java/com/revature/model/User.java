@@ -8,8 +8,10 @@ public class User {
     }
 
     private Role role;
+    private String username;
 
-    public User(Role role){
+    public User(Role role, String username){
         this.role = role;
+        this.username = username;
     }
 }
