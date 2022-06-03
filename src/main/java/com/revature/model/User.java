@@ -14,4 +14,20 @@ public class User {
         this.role = role;
         this.username = username;
     }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
