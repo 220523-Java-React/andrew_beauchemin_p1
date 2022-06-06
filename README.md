@@ -3,11 +3,12 @@ GET
 / = Home page
 /users = user list
 /user/{userid} = get user by id
-/users/{userid}/offers = show open offers
 
-/cars = car list
-/cars/{carid} = get car by id
-/cars/{carid}/{offid} = get offer by id
+/users/{userid}/offers = show open offers
+/users/{userid}/offers/{offerid} = offer
+
+/user/{userid}/cars = car list
+/user/{userid}/cars/{carid} = get car by id
 
 
 POST
