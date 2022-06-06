@@ -14,6 +14,7 @@ public class UserService {
 
     public void addUser(User user){
         userList.add(user);
+        userList.get(userList.size()-1).setId(getUniqueId());
     }
 
     public User getById(int id){
@@ -22,5 +23,10 @@ public class UserService {
                 return user;
         }
         return null;
+    }
+
+    // unique ID is just increment of last ID
+    private int getUniqueId(){
+        return userList.size();
     }
 }

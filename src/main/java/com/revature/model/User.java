@@ -1,6 +1,7 @@
 package com.revature.model;
 
 
+import java.util.List;
 
 public class User {
     public enum Role{
@@ -10,7 +11,10 @@ public class User {
     private Role role;
     private String username;
     private Integer id;
+    private List<Car> carsOwned;
+    private List<Offer> OffersMade;
 
+    // need default constructor for json to class
     public User(){}
     public User(Role role, String username, Integer id){
         this.role = role;
@@ -41,4 +45,6 @@ public class User {
     public void setId(Integer id) {
         this.id = id;
     }
+
+
 }
