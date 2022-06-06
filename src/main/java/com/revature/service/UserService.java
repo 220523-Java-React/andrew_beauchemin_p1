@@ -8,7 +8,7 @@ import java.util.List;
 public class UserService {
     private List<User> userList = new ArrayList<>();
 
-    public List<User> getUserList() {
+    public List<User> getAllUsers() {
         return userList;
     }
 
@@ -16,5 +16,11 @@ public class UserService {
         userList.add(user);
     }
 
-
+    public User getById(int id){
+        for(User user : userList){
+            if(user.getId() == id)
+                return user;
+        }
+        return null;
+    }
 }

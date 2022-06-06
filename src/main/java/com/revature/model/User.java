@@ -9,6 +9,7 @@ public class User {
 
     private Role role;
     private String username;
+    private Integer id;
 
     public User(Role role, String username){
         this.role = role;
@@ -29,5 +30,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
