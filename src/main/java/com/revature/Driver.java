@@ -11,7 +11,7 @@ public class Driver {
         app.get("/", ctx -> ctx.result("Homepage")/* TODO: Add options that user can take*/);
 
         app.get("/users", userController.getAllUsers);
-        app.post("/user", userController.setUser);
+        app.post("/users", userController.setUser);
         app.get("/users/{id}", userController.getUserById);
 
 

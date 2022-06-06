@@ -11,9 +11,11 @@ public class User {
     private String username;
     private Integer id;
 
-    public User(Role role, String username){
+    public User(){}
+    public User(Role role, String username, Integer id){
         this.role = role;
         this.username = username;
+        this.id = id;
     }
 
     public Role getRole() {
