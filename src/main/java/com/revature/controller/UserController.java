@@ -15,7 +15,7 @@ public class UserController {
     };
 
     public Handler getUserById = ctx -> {
-        String param = ctx.pathParam("id");
+        String param = ctx.pathParam("userid");
         int id = Integer.parseInt(param);
 
         ctx.json(userService.getById(id));
@@ -24,6 +24,10 @@ public class UserController {
     public Handler setUser = ctx -> {
         User user = ctx.bodyAsClass(User.class);
         userService.addUser(user);
+    };
+
+    public Handler test = ctx -> {
+        System.out.println("Test");
     };
 
 }

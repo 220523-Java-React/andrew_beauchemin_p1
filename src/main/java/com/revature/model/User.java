@@ -12,7 +12,7 @@ public class User {
     private String username;
     private Integer id;
     private List<Car> carsOwned;
-    private List<Offer> OffersMade;
+    private List<Offer> offersMade;
 
     // need default constructor for json to class
     public User(){}
@@ -46,5 +46,27 @@ public class User {
         this.id = id;
     }
 
+    public List<Car> getCarsOwned() {
+        return carsOwned;
+    }
 
+    public void setCarsOwned(List<Car> carsOwned) {
+        this.carsOwned = carsOwned;
+    }
+
+    public List<Offer> getOffersMade() {
+        return offersMade;
+    }
+
+    public void setOffersMade(List<Offer> offersMade) {
+        this.offersMade = offersMade;
+    }
+
+    public void addCar(Car car){
+        carsOwned.add(car);
+    }
+
+    public void addOffer(Offer offer){
+        offersMade.add(offer);
+    }
 }

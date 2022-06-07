@@ -12,8 +12,9 @@ public class Driver {
 
         app.get("/users", userController.getAllUsers);
         app.post("/users", userController.setUser);
-        app.get("/users/{id}", userController.getUserById);
+        app.get("/users/{userid}", userController.getUserById);
         //app.get("users/{id}/", userController.)
+        app.get("/users/{userid}/offers", userController.test);
 
 
 

@@ -12,9 +12,16 @@ GET
 
 
 POST
-/user = adds user to list
-/cars = add car to lot EMPLOYEE
-/cars/{id}/ = create offer
+/user/{userid}/user = adds user to list
+/user/{userid}/cars = add car to lot EMPLOYEE
+/user/{userid}/cars/{id}/ = create offer
+
+/users/{userid}/offers = make offer
+
+/users/{userid}/cars = add new car to lot
+
+PUT/PATCH
+/users/{userid}/offers/{offerid} = change offer to accepted
 
 
 offers = id CAR, id USER who put out offer, model of car, id of offer
