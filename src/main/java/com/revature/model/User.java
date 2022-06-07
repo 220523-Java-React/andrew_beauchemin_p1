@@ -16,10 +16,9 @@ public class User {
 
     // need default constructor for json to class
     public User(){}
-    public User(Role role, String username, Integer id){
+    public User(Role role, String username){
         this.role = role;
         this.username = username;
-        this.id = id;
     }
 
     public Role getRole() {
