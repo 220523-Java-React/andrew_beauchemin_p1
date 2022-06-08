@@ -23,7 +23,15 @@ public class UserController {
 
     public Handler setUser = ctx -> {
         User user = ctx.bodyAsClass(User.class);
-        userService.addUser(user);
+        userService.createUser(user);
+    };
+
+    public Handler updateUserById = ctx -> {
+
+    };
+
+    public Handler deleteUserById = ctx -> {
+
     };
 
     public Handler test = ctx -> {

@@ -10,10 +10,16 @@ public class Driver {
         Javalin app = Javalin.create().start(8080);
         app.get("/", ctx -> ctx.result("Homepage")/* TODO: Add options that user can take*/);
 
+
         app.get("/users", userController.getAllUsers);
+
+        // CRUD Operations for Users
         app.post("/users", userController.setUser);
         app.get("/users/{userid}", userController.getUserById);
-        //app.get("users/{id}/", userController.)
+        app.put("/users/{userid}", userController.updateUserById);
+        app.delete("/users/{userid}", userController.deleteUserById);
+
+
         app.get("/users/{userid}/offers", userController.test);
 
 

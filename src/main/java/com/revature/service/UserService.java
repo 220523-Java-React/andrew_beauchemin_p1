@@ -12,9 +12,21 @@ public class UserService {
         return userList;
     }
 
-    public void addUser(User user){
+    public void createUser(User user){
         userList.add(user);
         userList.get(userList.size()-1).setId(getUniqueId());
+    }
+
+    public void removeUser(User user){
+
+    }
+
+    public void updateUser(User user){
+
+    }
+
+    public void deleteUser(User user){
+
     }
 
     public User getById(int id){
