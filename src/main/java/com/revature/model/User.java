@@ -1,9 +1,11 @@
 package com.revature.model;
 
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
     public enum Role{
         CUSTOMER, EMPLOYEE;
     }
@@ -11,8 +13,8 @@ public class User {
     private Role role;
     private String username;
     private Integer id;
-    private List<Car> carsOwned;
-    private List<Offer> offersMade;
+    private List<Integer> carsOwnedId;
+    private List<Integer> offersMadeId;
 
     // need default constructor for json to class
     public User(){}
@@ -45,27 +47,47 @@ public class User {
         this.id = id;
     }
 
-    public List<Car> getCarsOwned() {
-        return carsOwned;
+    public List<Integer> getCarsOwnedId() {
+        return carsOwnedId;
     }
 
-    public void setCarsOwned(List<Car> carsOwned) {
-        this.carsOwned = carsOwned;
+    public void setCarsOwnedId(List<Integer> carsOwned) {
+        this.carsOwnedId = carsOwned;
     }
 
-    public List<Offer> getOffersMade() {
-        return offersMade;
+    public List<Integer> getOffersMadeId() {
+        return offersMadeId;
     }
 
-    public void setOffersMade(List<Offer> offersMade) {
-        this.offersMade = offersMade;
+    public void setOffersMadeId(List<Integer> offersMade) {
+        this.offersMadeId = offersMade;
     }
 
-    public void addCar(Car car){
-        carsOwned.add(car);
+    public void addCarId(Integer car){carsOwnedId.add(car);}
+
+    public void addOfferId(Integer offer){offersMadeId.add(offer);}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return role == user.role && Objects.equals(username, user.username) && Objects.equals(id, user.id) && Objects.equals(carsOwnedId, user.carsOwnedId) && Objects.equals(offersMadeId, user.offersMadeId);
     }
 
-    public void addOffer(Offer offer){
-        offersMade.add(offer);
+    @Override
+    public int hashCode() {
+        return Objects.hash(role, username, id, carsOwnedId, offersMadeId);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "role=" + role +
+                ", username='" + username + '\'' +
+                ", id=" + id +
+                ", carsOwned=" + carsOwnedId +
+                ", offersMade=" + offersMadeId +
+                '}';
     }
 }
