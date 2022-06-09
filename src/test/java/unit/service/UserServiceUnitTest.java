@@ -51,6 +51,7 @@ public class UserServiceUnitTest {
         Mockito.when(mockList.size()).thenReturn(1);
 
         //TODO: Get Mockito to work correctly with For-each loop
+        //literally every Stackoverflow response to this tells me not to stub a List
 
 
         UserService service = new UserService(mockList);
