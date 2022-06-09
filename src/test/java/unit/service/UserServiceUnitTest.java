@@ -28,8 +28,6 @@ public class UserServiceUnitTest {
         UserService service = new UserService();
 
         Mockito.when(mockList.add(user)).thenReturn(true);
-        Mockito.when(mockList.size()).thenReturn(1);
-        Mockito.when(mockList.get(0)).thenReturn(user);
 
         boolean result = service.createUser(user);
         Assertions.assertTrue(result);
@@ -47,14 +45,16 @@ public class UserServiceUnitTest {
 
     @Test
     public void whenGivenValidIdGetUserByIdReturnsUserWithThatId(){
-        User flashcard = new User(Role.CUSTOMER, "Me", 7);
+        User user = new User(Role.CUSTOMER, "Me", 7);
 
-        // fake the size of the list when it is called
+        Mockito.when(mockList.get(0)).thenReturn(user);
         Mockito.when(mockList.size()).thenReturn(1);
-        Mockito.when(mockList.get(0)).thenReturn(flashcard);
+
+        //TODO: Get Mockito to work correctly with For-each loop
+
 
         UserService service = new UserService(mockList);
-        User result = service.getUserById(0);
-        Assertions.assertEquals(flashcard, result);
+        User result = service.getUserById(7);
+        Assertions.assertEquals(user, result);
     }
 }

@@ -20,7 +20,7 @@ public class UserService {
 
     public boolean createUser(User user){
         userList.add(user);
-        userList.get(userList.size()-1).setId(getUniqueId());
+        //userList.get(userList.size()-1).setId(getUniqueId());
 
         //TODO: add cases in which this would be false, eg trying to add a duplicate user or same id
         return true;
