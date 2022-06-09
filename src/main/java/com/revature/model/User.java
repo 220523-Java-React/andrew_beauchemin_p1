@@ -16,9 +16,10 @@ public class User implements Serializable {
 
     // need default constructor for json to class
     public User(){}
-    public User(Role role, String username){
+    public User(Role role, String username, int id){
         this.role = role;
         this.username = username;
+        this.id = id;
     }
 
     public Role getRole() {

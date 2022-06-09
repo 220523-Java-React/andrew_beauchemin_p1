@@ -18,7 +18,7 @@ public class UserController {
         String param = ctx.pathParam("userid");
         int id = Integer.parseInt(param);
 
-        User user = userService.getById(id);
+        User user = userService.getUserById(id);
         if(user != null) {
             ctx.json(user);
         }else {
