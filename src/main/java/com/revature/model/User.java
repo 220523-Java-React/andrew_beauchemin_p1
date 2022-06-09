@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class User implements Serializable {
-    public enum Role{
-        CUSTOMER, EMPLOYEE;
-    }
+
 
     private Role role;
     private String username;

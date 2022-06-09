@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Offer implements Serializable {
-    public enum Status{
-        OPEN, APPROVED, REJECTED;
-    }
 
     private Status status;
     private float amount;
@@ -14,7 +11,7 @@ public class Offer implements Serializable {
     private Integer id;
     private String carInfo;
 
-    Offer(Offer.Status status, float amount){
+    Offer(Status status, float amount){
         this.status = status;
         this.amount = amount;
     }
