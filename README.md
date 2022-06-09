@@ -4,30 +4,35 @@
 
 /users = user list
 
+***/users -> As a non-user, I can create a Customer or Employee Account***
+
 /user/{userid} = get user by id
 
-/users/{userid}/offers = show open offers
+/offers = show open offers
 
-/users/{userid}/offers/{offerid} = offer
+/users/{offerid} = offer
 
-/user/{userid}/cars = car list
+/cars = car list
 
-/user/{userid}/cars/{carid} = get car by id
+***/cars?userid={userid} ->  As a Customer, I can view available Cars on the lot***
+
+/cars/{carid} = get car by id
 
 
 ## POST
-/user/{userid}/user = adds user to list
+/users = adds user to list
 
-/user/{userid}/cars = add car to lot EMPLOYEE
+/offers = create offer
 
-/user/{userid}/cars/{id}/ = create offer
+/offers = make offer
 
-/users/{userid}/offers = make offer
+***/cars ->  As a Customer, I can make an Offer on an available Car***
 
-/users/{userid}/cars = add new car to lot
+
+/cars = add new car to lot
 
 ## PUT/PATCH
-/users/{userid}/offers/{offerid} = change offer to accepted
+/ = change offer to accepted
 
 
 ## Model
