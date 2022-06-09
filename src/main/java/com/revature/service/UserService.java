@@ -12,21 +12,45 @@ public class UserService {
         return userList;
     }
 
-    public void createUser(User user){
+    public boolean createUser(User user){
         userList.add(user);
         userList.get(userList.size()-1).setId(getUniqueId());
+
+        //TODO: add cases in which this would be false, eg trying to add a duplicate user or same id
+        return true;
     }
 
-    public void removeUser(User user){
+    public boolean removeUserById(User user){
+        for(User selectedUserL: userList){
+            if(user.getId() == selectedUserL.getId()){
+                userList.remove(selectedUserL);
+                return true;
+            }
+        }
 
+        return false;
     }
 
-    public void updateUser(User user){
+    public boolean updateUserById(User user){
+        for(User selectedUser: userList){
+            if(user.getId() == selectedUser.getId()){
+                selectedUser = user;
+                return true;
+            }
+        }
 
+        return false;
     }
 
-    public void deleteUser(User user){
+    public boolean deleteUserById(User user){
+        for(User selectedUser: userList){
+            if(user.getId() == selectedUser.getId()){
+                userList.remove(selectedUser);
+                return true;
+            }
+        }
 
+        return false;
     }
 
     public User getById(int id){
@@ -37,7 +61,7 @@ public class UserService {
         return null;
     }
 
-    // unique ID is just increment of last ID
+    // unique ID is just increment of last ID; probably change later
     private int getUniqueId(){
         return userList.size();
     }

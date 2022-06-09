@@ -18,24 +18,40 @@ public class UserController {
         String param = ctx.pathParam("userid");
         int id = Integer.parseInt(param);
 
-        ctx.json(userService.getById(id));
+        User user = userService.getById(id);
+        if(user != null) {
+            ctx.json(user);
+        }else {
+            ctx.status(400).json(parseError("User not found"));
+        }
     };
 
     public Handler setUser = ctx -> {
         User user = ctx.bodyAsClass(User.class);
-        userService.createUser(user);
+        if(!userService.createUser(user)){
+            ctx.status(400).json(parseError("Invalid creation"));
+        }
     };
 
     public Handler updateUserById = ctx -> {
-
+        User user = ctx.bodyAsClass(User.class);
+        if(!userService.updateUserById(user)){
+            ctx.status(400).json(parseError("User not found"));
+        }
     };
 
     public Handler deleteUserById = ctx -> {
-
+        User user = ctx .bodyAsClass(User.class);
+        if(!userService.deleteUserById(user)){
+            ctx.status(400).json(parseError("User not found"));
+        }
     };
 
     public Handler test = ctx -> {
         System.out.println("Test");
     };
 
+    private String parseError(String message){
+        return "{\"success\":false, \"message\":\"" + message + "\"}";
+    }
 }
