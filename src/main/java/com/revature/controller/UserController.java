@@ -51,7 +51,7 @@ public class UserController {
         if(!userService.deleteUserById(user.getId())){
             ctx.status(400).json(parseError("User not found"));
         }else{
-            ctx.status(200);
+            ctx.status(200).json(parseSuccess("Class Deleted"));
         }
     };
 
@@ -61,5 +61,9 @@ public class UserController {
 
     private String parseError(String message){
         return "{\"success\":false, \"message\":\"" + message + "\"}";
+    }
+
+    private String parseSuccess(String message){
+        return "{\"success\":true, \"message\":\"" + message + "\"}";
     }
 }
