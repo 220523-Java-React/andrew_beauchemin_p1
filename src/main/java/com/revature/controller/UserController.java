@@ -47,7 +47,7 @@ public class UserController {
     };
 
     public Handler deleteUserById = ctx -> {
-        User user = ctx .bodyAsClass(User.class);
+        User user = ctx.bodyAsClass(User.class);
         if(!userService.deleteUserById(user.getId())){
             ctx.status(400).json(parseError("User not found"));
         }else{
