@@ -20,7 +20,7 @@ public class UserController {
 
         User user = userService.getUserById(id);
         if(user != null) {
-            ctx.json(user);
+            ctx.status(200).json(user);
         }else {
             ctx.status(400).json(parseError("User not found"));
         }
@@ -28,22 +28,30 @@ public class UserController {
 
     public Handler setUser = ctx -> {
         User user = ctx.bodyAsClass(User.class);
-        if(!userService.createUser(user)){
+        User userSet = userService.createUser(user);
+        if(userSet == null){
             ctx.status(400).json(parseError("Invalid creation"));
+        }else{
+            ctx.status(201).json(userSet);
         }
     };
 
     public Handler updateUserById = ctx -> {
         User user = ctx.bodyAsClass(User.class);
-        if(!userService.updateUserById(user)){
+        User userUpdate = userService.updateUserById(user);
+        if(userUpdate == null){
             ctx.status(400).json(parseError("User not found"));
+        }else{
+            ctx.status(201).json(userUpdate);
         }
     };
 
     public Handler deleteUserById = ctx -> {
         User user = ctx .bodyAsClass(User.class);
-        if(!userService.deleteUserById(user)){
+        if(!userService.deleteUserById(user.getId())){
             ctx.status(400).json(parseError("User not found"));
+        }else{
+            ctx.status(200);
         }
     };
 

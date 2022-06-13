@@ -1,74 +1,36 @@
 package com.revature.service;
 
 import com.revature.model.User;
+import com.revature.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    private List<User> userList = new ArrayList<>();
+    private UserRepository userRepository;
 
-    public UserService(){}
-
-    public UserService(List<User> userList){
-        this.userList = userList;
-    }
+    public UserService(){userRepository = new UserRepository();}
 
     public List<User> getAllUsers() {
-        return userList;
+        return userRepository.getAll();
     }
 
-    public boolean createUser(User user){
-        userList.add(user);
-        //userList.get(userList.size()-1).setId(getUniqueId());
+    public User createUser(User user){
 
-        //TODO: add cases in which this would be false, eg trying to add a duplicate user or same id
-        return true;
+       return userRepository.create(user);
     }
 
-    public boolean removeUserById(User user){
-        for(User selectedUserL: userList){
-            if(user.getId() == selectedUserL.getId()){
-                userList.remove(selectedUserL);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean updateUserById(User user){
-        for(User selectedUser: userList){
-            if(user.getId() == selectedUser.getId()){
-                selectedUser = user;
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public boolean deleteUserById(User user){
-        for(User selectedUser: userList){
-            if(user.getId() == selectedUser.getId()){
-                userList.remove(selectedUser);
-                return true;
-            }
-        }
-
-        return false;
-    }
 
     public User getUserById(int id){
-        for(User user : userList){
-            if(user.getId() == id)
-                return user;
-        }
-        return null;
+        return userRepository.getById(id);
     }
 
-    // unique ID is just increment of last ID; probably change later
-    private int getUniqueId(){
-        return userList.size();
+    public User updateUserById(User user){
+        return userRepository.update(user);
     }
+
+    public boolean deleteUserById(int id){
+        return userRepository.deleteById(id);
+    }
+
 }
