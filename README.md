@@ -10,11 +10,15 @@
 
 /offers = show open offers
 
+***/offers?userid={userid} -> As a Customer, I can view my open offers***
+
 /users/{offerid} = offer
 
 /cars = car list
 
-***/cars?userid={userid} ->  As a Customer, I can view available Cars on the lot***
+***/cars?userid-{userid} ->  As a Customer, I can view the Cars that I own***
+
+***/cars ->  As a Customer, I can view available Cars on the lot***
 
 /cars/{carid} = get car by id
 
@@ -26,13 +30,17 @@
 
 /offers = make offer
 
-***/cars ->  As a Customer, I can make an Offer on an available Car***
+***/cars ->  As an Employee, I can add a new Car to the lot***
+
+***/offers ->  As a Customer, I can make an Offer on an available Car***
 
 
 /cars = add new car to lot
 
 ## PUT/PATCH
 / = change offer to accepted
+
+***/offers/{offerid} -> As an Employee, I can accept or reject an Offer on a Car***
 
 
 ## Model
