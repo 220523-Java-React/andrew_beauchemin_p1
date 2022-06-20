@@ -15,19 +15,12 @@ public class UserService {
         return userRepository.getAll();
     }
 
-    public User createUser(User user){
-
-       return userRepository.create(user);
-    }
+    public User createUser(User user){return userRepository.create(user);}
 
 
-    public User getUserById(int id){
-        return userRepository.getById(id);
-    }
+    public User getUserById(int id){return userRepository.getById(id);}
 
-    public User updateUserById(User user){
-        return userRepository.update(user);
-    }
+    public User updateUserById(User user){return userRepository.update(user);}
 
     public boolean deleteUserById(int id){
         return userRepository.deleteById(id);
