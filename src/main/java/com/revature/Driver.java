@@ -8,7 +8,7 @@ public class Driver {
     public static void main(String[] args) {
         UserController userController = new UserController();
         Javalin app = Javalin.create().start(8080);
-        app.get("/", ctx -> ctx.result("Homepage")/* TODO: Add options that user can take*/);
+        app.get("/", ctx -> ctx.status(100).result("Homepage\n/users\n/offers\n/cars")/* TODO: Add options that user can take*/);
 
 
         app.get("/users", userController.getAllUsers);

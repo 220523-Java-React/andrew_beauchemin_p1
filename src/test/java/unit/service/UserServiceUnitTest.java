@@ -29,8 +29,8 @@ public class UserServiceUnitTest {
 
         Mockito.when(mockList.add(user)).thenReturn(true);
 
-        boolean result = service.createUser(user);
-        Assertions.assertTrue(result);
+        User result = service.createUser(user);
+        Assertions.assertEquals(result, user);
     }
 
     @Test
@@ -54,8 +54,26 @@ public class UserServiceUnitTest {
         //literally every Stackoverflow response to this tells me not to stub a List
 
 
-        UserService service = new UserService(mockList);
-        User result = service.getUserById(7);
-        Assertions.assertEquals(user, result);
+        //UserService service = new UserService(mockList);
+        //User result = service.getUserById(7);
+        //Assertions.assertEquals(user, result);
+    }
+
+    @Test
+    public void whenGetUserByIdIsCalledOnEmptyServiceNullIsReturned(){
+        UserService service = new UserService();
+        Assertions.assertEquals(null, service.getUserById(7));
+    }
+
+    @Test
+    public void whenUserAddedThenDeleteUserByIdCalledUserIsDeleted(){
+        User user = new User(Role.CUSTOMER, "Me", 7);
+        UserService service = new UserService();
+
+        service.createUser(user);
+        Assertions.assertEquals(service.getUserById(7), user);
+
+        service.deleteUserById(7);
+        Assertions.assertEquals(service.getUserById(7), null);
     }
 }
