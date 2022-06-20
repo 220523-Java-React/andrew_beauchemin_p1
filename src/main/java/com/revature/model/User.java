@@ -10,9 +10,11 @@ public class User implements Serializable {
 
     private Role role;
     private String username;
+    private String password;
+    private String firstName;
+    private String lastName;
     private Integer id;
-    private List<Integer> carsOwnedId;
-    private List<Integer> offersMadeId;
+
 
     // need default constructor for json to class
     public User(){}
@@ -46,37 +48,29 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public List<Integer> getCarsOwnedId() {
-        return carsOwnedId;
-    }
+    public String getPassword() {return password;}
 
-    public void setCarsOwnedId(List<Integer> carsOwned) {
-        this.carsOwnedId = carsOwned;
-    }
+    public void setPassword(String password) {this.password = password;}
 
-    public List<Integer> getOffersMadeId() {
-        return offersMadeId;
-    }
+    public String getFirstName() {return firstName;}
 
-    public void setOffersMadeId(List<Integer> offersMade) {
-        this.offersMadeId = offersMade;
-    }
+    public void setFirstName(String firstName) {this.firstName = firstName;}
 
-    public void addCarId(Integer car){carsOwnedId.add(car);}
+    public String getLastName() {return lastName;}
 
-    public void addOfferId(Integer offer){offersMadeId.add(offer);}
+    public void setLastName(String lastName) {this.lastName = lastName;}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return role == user.role && Objects.equals(username, user.username) && Objects.equals(id, user.id) && Objects.equals(carsOwnedId, user.carsOwnedId) && Objects.equals(offersMadeId, user.offersMadeId);
+        return role == user.role && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(role, username, id, carsOwnedId, offersMadeId);
+        return Objects.hash(role, username, password, firstName, lastName, id);
     }
 
     @Override
@@ -84,9 +78,10 @@ public class User implements Serializable {
         return "User{" +
                 "role=" + role +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", id=" + id +
-                ", carsOwned=" + carsOwnedId +
-                ", offersMade=" + offersMadeId +
                 '}';
     }
 }
