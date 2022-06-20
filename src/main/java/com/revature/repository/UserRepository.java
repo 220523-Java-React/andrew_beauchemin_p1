@@ -1,12 +1,10 @@
 package com.revature.repository;
 
+import com.revature.model.Role;
 import com.revature.model.User;
 import com.revature.util.ConnectionUtility;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +12,32 @@ public class UserRepository implements DAO<User> {
 
     @Override
     public User create(User user) {
-        String sql = "insert into users(first_name, last_name, username, password) values(?,?,?,?)";
+        String sql = "insert into users(first_name, last_name, username, password, role) values(?,?,?,?,?)";
 
         try(Connection connection = ConnectionUtility.getConnection()){
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, user.getFirstName());
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getUsername());
             stmt.setString(4, user.getPassword());
+            stmt.setString(5, user.getRole().getValue());
 
             int suceess = stmt.executeUpdate();
+
+            // something went wrong
+            if(suceess != 1)
+                return null;
+
+            // check to see if the key was generated and then return user by id
+            ResultSet rs = stmt.getGeneratedKeys();
+            if(rs.next()){
+                return getById(rs.getInt(1));
+            }
 
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-        //TODO: return get user
         return null;
     }
 
@@ -50,7 +58,9 @@ public class UserRepository implements DAO<User> {
                         .setUsername(results.getString("username"))
                         .setPassword(results.getString("password"))
                         .setFirstName(results.getString("first_name"))
-                        .setId(results.getInt("id")));
+                        .setId(results.getInt("id"))
+                        .setRole(Role.valueOf(results.getString("role"))));
+
 
                 User user2 = new User().setFirstName("first");
             }
@@ -70,21 +80,26 @@ public class UserRepository implements DAO<User> {
         try(Connection connection = ConnectionUtility.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            stmt.setString(1, Integer.toString(id));
+            stmt.setInt(1, id);
 
             ResultSet results = stmt.executeQuery();
 
-            // there better only be one user or primary key isnt working
-            User resultUser = new User()
-                    .setLastName(results.getString("last_name"))
-                    .setUsername(results.getString("username"))
-                    .setPassword(results.getString("password"))
-                    .setFirstName(results.getString("first_name"))
-                    .setId(results.getInt("id"));
+            if(results.next()) {
+                // there better only be one user or primary key isnt working
+                User resultUser = new User()
+                        .setLastName(results.getString("last_name"))
+                        .setUsername(results.getString("username"))
+                        .setPassword(results.getString("password"))
+                        .setFirstName(results.getString("first_name"))
+                        .setId(results.getInt("id"))
+                        .setRole(Role.valueOf(results.getString("role")));
 
-            //TODO: figure out how to send null if query not good
-            return resultUser;
+                return resultUser;
 
+                // if no result return null
+            }else {
+                return null;
+            }
 
         } catch (SQLException e){
             e.printStackTrace();
@@ -103,7 +118,7 @@ public class UserRepository implements DAO<User> {
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getUsername());
             stmt.setString(4, user.getPassword());
-            stmt.setString(5, Integer.toString(user.getId()));
+            stmt.setInt(5, user.getId());
 
             int suceess = stmt.executeUpdate();
 
@@ -122,5 +137,25 @@ public class UserRepository implements DAO<User> {
     }
 
     @Override
-    public boolean deleteById(int id) {return false;    }
+    public boolean deleteById(int id) {
+        String sql = "delete from users where id = ?";
+
+        try(Connection connection = ConnectionUtility.getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            int suceess = stmt.executeUpdate();
+
+            // not 1 row affected, something must be wrong
+            if(suceess != 1)
+                return false;
+
+            return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+        return false;
+    }
 }
