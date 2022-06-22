@@ -9,7 +9,8 @@ public class Offer implements Serializable {
     private float amount;
     private Integer customerId;
     private Integer id;
-    private String carInfo;
+
+    Offer(){}
 
     Offer(Status status, float amount){
         this.status = status;
@@ -32,23 +33,6 @@ public class Offer implements Serializable {
 
     public void setId(Integer id) {this.id = id;}
 
-    public String getCarInfo() {return carInfo;}
-
-    public void setCarInfo(String carInfo) {this.carInfo = carInfo;}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Offer offer = (Offer) o;
-        return Float.compare(offer.amount, amount) == 0 && status == offer.status && Objects.equals(customerId, offer.customerId) && Objects.equals(id, offer.id) && Objects.equals(carInfo, offer.carInfo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(status, amount, customerId, id, carInfo);
-    }
-
     @Override
     public String toString() {
         return "Offer{" +
@@ -56,7 +40,19 @@ public class Offer implements Serializable {
                 ", amount=" + amount +
                 ", customerId=" + customerId +
                 ", id=" + id +
-                ", carInfo='" + carInfo + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Offer offer = (Offer) o;
+        return Float.compare(offer.amount, amount) == 0 && status == offer.status && Objects.equals(customerId, offer.customerId) && Objects.equals(id, offer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, amount, customerId, id);
     }
 }
