@@ -5,18 +5,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class Car implements Serializable {
-    private String type;
+    private String model;
     private Integer id;
     private Integer ownerId;
-    private List<Integer> offerId;
+    private String vinNumber;
+
+    Car(){}
 
     Car(String type){
-        this.type = type;
+        this.model = type;
     }
-
-    public String getType() {return type;}
-
-    public void setType(String type) {this.type = type;}
 
     public Integer getId() {return id;}
 
@@ -26,30 +24,34 @@ public class Car implements Serializable {
 
     public void setOwnerId(Integer ownerId) {this.ownerId = ownerId;}
 
-    public List<Integer> getOfferId() {return offerId;}
+    public String getModel() {return model;}
 
-    public void setOfferId(List<Integer> offerId) {this.offerId = offerId;}
+    public void setModel(String model) {this.model = model;}
+
+    public String getVinNumber() {return vinNumber;}
+
+    public void setVinNumber(String vinNumber) {this.vinNumber = vinNumber;}
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return Objects.equals(type, car.type) && Objects.equals(id, car.id) && Objects.equals(ownerId, car.ownerId) && Objects.equals(offerId, car.offerId);
+        return Objects.equals(model, car.model) && Objects.equals(id, car.id) && Objects.equals(ownerId, car.ownerId) && Objects.equals(vinNumber, car.vinNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, id, ownerId, offerId);
+        return Objects.hash(model, id, ownerId, vinNumber);
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "type='" + type + '\'' +
+                "model='" + model + '\'' +
                 ", id=" + id +
                 ", ownerId=" + ownerId +
-                ", offerId=" + offerId +
+                ", vinNumber='" + vinNumber + '\'' +
                 '}';
     }
 }
