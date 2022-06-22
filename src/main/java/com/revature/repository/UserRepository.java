@@ -12,7 +12,7 @@ public class UserRepository implements DAO<User> {
 
     @Override
     public User create(User user) {
-        String sql = "insert into users(first_name, last_name, username, password, role) values(?,?,?,?,?)";
+        String sql = "insert into users(first_name, last_name, username, password, role_id) values(?,?,?,?,?)";
 
         try(Connection connection = ConnectionUtility.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -20,7 +20,7 @@ public class UserRepository implements DAO<User> {
             stmt.setString(2, user.getLastName());
             stmt.setString(3, user.getUsername());
             stmt.setString(4, user.getPassword());
-            stmt.setString(5, user.getRole().getValue());
+            stmt.setInt(5, user.getRole().ordinal());
 
             int suceess = stmt.executeUpdate();
 
@@ -59,7 +59,7 @@ public class UserRepository implements DAO<User> {
                         .setPassword(results.getString("password"))
                         .setFirstName(results.getString("first_name"))
                         .setId(results.getInt("id"))
-                        .setRole(Role.valueOf(results.getString("role"))));
+                        .setRole(Role.values()[results.getInt("role_id")]));
 
 
                 User user2 = new User().setFirstName("first");
@@ -92,7 +92,7 @@ public class UserRepository implements DAO<User> {
                         .setPassword(results.getString("password"))
                         .setFirstName(results.getString("first_name"))
                         .setId(results.getInt("id"))
-                        .setRole(Role.valueOf(results.getString("role")));
+                        .setRole(Role.values()[results.getInt("role_id")]);
 
                 return resultUser;
 
