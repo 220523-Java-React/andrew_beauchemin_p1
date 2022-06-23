@@ -18,19 +18,19 @@ public class Car implements Serializable {
 
     public Integer getId() {return id;}
 
-    public void setId(Integer id) {this.id = id;}
+    public Car setId(Integer id) {this.id = id; return this;}
 
     public Integer getOwnerId() {return ownerId;}
 
-    public void setOwnerId(Integer ownerId) {this.ownerId = ownerId;}
+    public Car setOwnerId(Integer ownerId) {this.ownerId = ownerId;return this;}
 
     public String getModel() {return model;}
 
-    public void setModel(String model) {this.model = model;}
+    public Car setModel(String model) {this.model = model;return this;}
 
     public String getVinNumber() {return vinNumber;}
 
-    public void setVinNumber(String vinNumber) {this.vinNumber = vinNumber;}
+    public Car setVinNumber(String vinNumber) {this.vinNumber = vinNumber;return this;}
 
     @Override
     public boolean equals(Object o) {
