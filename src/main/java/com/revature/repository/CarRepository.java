@@ -18,7 +18,10 @@ public class CarRepository implements DAO<Car>{
             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, car.getModel());
             stmt.setString(2, car.getVinNumber());
-            stmt.setInt(3, car.getOwnerId());
+            if(car.getOwnerId() != null)
+                stmt.setInt(3, car.getOwnerId());
+            else
+                stmt.setNull(3, Types.INTEGER);
 
             int suceess = stmt.executeUpdate();
 
@@ -40,9 +43,9 @@ public class CarRepository implements DAO<Car>{
     }
 
     @Override
-    public List<User> getAll() {
-        List<User> users = new ArrayList<>();
-        String sql = "select * from users";
+    public List<Car> getAll() {
+        List<Car> cars = new ArrayList<>();
+        String sql = "select * from cars";
 
         try(Connection connection = ConnectionUtility.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -51,16 +54,12 @@ public class CarRepository implements DAO<Car>{
 
             while(results.next()){
                 // go through each result, build a User object for that data, add that user object the users list
-                users.add(new User()
-                        .setLastName(results.getString("last_name"))
-                        .setUsername(results.getString("username"))
-                        .setPassword(results.getString("password"))
-                        .setFirstName(results.getString("first_name"))
+                cars.add(new Car()
+                        .setModel(results.getString("model"))
                         .setId(results.getInt("id"))
-                        .setRole(Role.values()[results.getInt("role_id")]));
+                        .setOwnerId(results.getInt("owner_id"))
+                        .setVinNumber(results.getString("vin")));
 
-
-                User user2 = new User().setFirstName("first");
             }
 
 
@@ -68,12 +67,12 @@ public class CarRepository implements DAO<Car>{
             e.printStackTrace();
         }
 
-        return users;
+        return cars;
     }
 
     @Override
-    public User getById(int id) {
-        String sql = "select * from users where id = ?";
+    public Car getById(int id) {
+        String sql = "select * from cars where id = ?";
 
         try(Connection connection = ConnectionUtility.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -84,15 +83,13 @@ public class CarRepository implements DAO<Car>{
 
             if(results.next()) {
                 // there better only be one user or primary key isnt working
-                User resultUser = new User()
-                        .setLastName(results.getString("last_name"))
-                        .setUsername(results.getString("username"))
-                        .setPassword(results.getString("password"))
-                        .setFirstName(results.getString("first_name"))
+                Car resultCar = new Car()
+                        .setModel(results.getString("model"))
                         .setId(results.getInt("id"))
-                        .setRole(Role.values()[results.getInt("role_id")]);
+                        .setOwnerId(results.getInt("owner_id"))
+                        .setVinNumber(results.getString("vin"));
 
-                return resultUser;
+                return resultCar;
 
                 // if no result return null
             }else {
@@ -107,16 +104,15 @@ public class CarRepository implements DAO<Car>{
     }
 
     @Override
-    public User update(User user) {
-        String sql = "update users set first_name = ?, last_name = ?, username = ?, password = ? where id = ?";
+    public Car update(Car car) {
+        String sql = "update cars set model = ?, vin = ?, owner_id = ? where id = ?";
 
         try(Connection connection = ConnectionUtility.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, user.getFirstName());
-            stmt.setString(2, user.getLastName());
-            stmt.setString(3, user.getUsername());
-            stmt.setString(4, user.getPassword());
-            stmt.setInt(5, user.getId());
+            stmt.setString(1, car.getModel());
+            stmt.setString(2, car.getVinNumber());
+            stmt.setInt(3, car.getOwnerId());
+            stmt.setInt(4, car.getId());
 
             int suceess = stmt.executeUpdate();
 
@@ -125,7 +121,7 @@ public class CarRepository implements DAO<Car>{
                 return null;
 
             // returns the user by id if set correctly
-            return getById(user.getId());
+            return car;
 
         }catch(SQLException e){
             e.printStackTrace();
@@ -136,7 +132,7 @@ public class CarRepository implements DAO<Car>{
 
     @Override
     public boolean deleteById(int id) {
-        String sql = "delete from users where id = ?";
+        String sql = "delete from cars where id = ?";
 
         try(Connection connection = ConnectionUtility.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(sql);

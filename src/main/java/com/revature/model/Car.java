@@ -10,9 +10,9 @@ public class Car implements Serializable {
     private Integer ownerId;
     private String vinNumber;
 
-    Car(){}
+    public Car(){}
 
-    Car(String type){
+    public Car(String type){
         this.model = type;
     }
 
