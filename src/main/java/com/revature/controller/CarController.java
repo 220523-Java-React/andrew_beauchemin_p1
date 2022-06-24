@@ -4,11 +4,16 @@ import com.revature.model.Car;
 import com.revature.model.User;
 import com.revature.service.CarService;
 import io.javalin.http.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CarController.class);
+
     CarService carService = new CarService();
 
     public Handler getAllCars = ctx -> {
@@ -71,6 +76,7 @@ public class CarController {
     };
 
     private String parseError(String message){
+        logger.warn(message);
         return "{\"success\":false, \"message\":\"" + message + "\"}";
     }
 

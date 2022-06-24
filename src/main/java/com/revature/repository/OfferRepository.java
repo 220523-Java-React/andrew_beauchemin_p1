@@ -5,12 +5,18 @@ import com.revature.model.Role;
 import com.revature.model.Status;
 import com.revature.model.User;
 import com.revature.util.ConnectionUtility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OfferRepository implements DAO<Offer>{
+
+    private static final Logger logger = LoggerFactory.getLogger(OfferRepository.class);
+
+
     @Override
     public Offer create(Offer offer) {
         String sql = "insert into offers(amount, customer_id, car_id, status_id) values(?,?,?,?)";
@@ -35,7 +41,7 @@ public class OfferRepository implements DAO<Offer>{
             }
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -65,7 +71,7 @@ public class OfferRepository implements DAO<Offer>{
 
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return offers;
@@ -99,7 +105,7 @@ public class OfferRepository implements DAO<Offer>{
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -127,7 +133,7 @@ public class OfferRepository implements DAO<Offer>{
             return offer;
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -149,7 +155,7 @@ public class OfferRepository implements DAO<Offer>{
 
             return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
 

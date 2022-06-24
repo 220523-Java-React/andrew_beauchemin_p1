@@ -3,12 +3,17 @@ package com.revature.repository;
 import com.revature.model.Role;
 import com.revature.model.User;
 import com.revature.util.ConnectionUtility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository implements DAO<User> {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserRepository.class);
+
 
     @Override
     public User create(User user) {
@@ -35,7 +40,7 @@ public class UserRepository implements DAO<User> {
             }
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -65,7 +70,7 @@ public class UserRepository implements DAO<User> {
 
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return users;
@@ -100,7 +105,7 @@ public class UserRepository implements DAO<User> {
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -128,7 +133,7 @@ public class UserRepository implements DAO<User> {
             return getById(user.getId());
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -150,7 +155,7 @@ public class UserRepository implements DAO<User> {
 
             return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
 
@@ -180,7 +185,7 @@ public class UserRepository implements DAO<User> {
 
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;

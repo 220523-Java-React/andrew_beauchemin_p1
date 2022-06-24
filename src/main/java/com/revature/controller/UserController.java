@@ -3,10 +3,15 @@ package com.revature.controller;
 import com.revature.model.User;
 import com.revature.service.UserService;
 import io.javalin.http.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     UserService userService = new UserService();
 
     public Handler getAllUsers = ctx -> {
@@ -61,6 +66,8 @@ public class UserController {
     };
 
     private String parseError(String message){
+
+        logger.warn(message);
         return "{\"success\":false, \"message\":\"" + message + "\"}";
     }
 

@@ -6,8 +6,12 @@ import com.revature.model.User;
 import com.revature.service.AuthService;
 import io.javalin.http.ForbiddenResponse;
 import io.javalin.http.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuthController {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     public static Handler authenticate = context -> {
 
@@ -31,6 +35,7 @@ public class AuthController {
             AuthService.isValidToken(token);
 
         } catch(NullPointerException | JWTVerificationException e){
+            logger.warn(e.getMessage());
             throw new ForbiddenResponse("You must add a valid Bearer token");
         }
     };
@@ -43,6 +48,7 @@ public class AuthController {
                 throw new ForbiddenResponse("Access Not High enough");
 
         } catch(NullPointerException | JWTVerificationException e){
+            logger.warn(e.getMessage());
             throw new ForbiddenResponse("You must add a valid Bearer token");
         }
     };

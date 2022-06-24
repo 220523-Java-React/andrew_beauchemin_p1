@@ -4,12 +4,18 @@ import com.revature.model.Car;
 import com.revature.model.Role;
 import com.revature.model.User;
 import com.revature.util.ConnectionUtility;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarRepository implements DAO<Car>{
+
+    private static final Logger logger = LoggerFactory.getLogger(CarRepository.class);
+
+
     @Override
     public Car create(Car car) {
         String sql = "insert into cars(model, vin, owner_id) values(?,?,?)";
@@ -36,7 +42,7 @@ public class CarRepository implements DAO<Car>{
             }
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -64,7 +70,7 @@ public class CarRepository implements DAO<Car>{
 
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return cars;
@@ -97,7 +103,7 @@ public class CarRepository implements DAO<Car>{
             }
 
         } catch (SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -124,7 +130,7 @@ public class CarRepository implements DAO<Car>{
             return car;
 
         }catch(SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
         return null;
@@ -146,7 +152,7 @@ public class CarRepository implements DAO<Car>{
 
             return true;
         }catch (SQLException e){
-            e.printStackTrace();
+            logger.warn(e.getMessage());
         }
 
 

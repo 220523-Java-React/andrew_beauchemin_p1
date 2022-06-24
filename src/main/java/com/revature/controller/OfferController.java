@@ -6,11 +6,16 @@ import com.revature.model.Status;
 import com.revature.model.User;
 import com.revature.service.OfferService;
 import io.javalin.http.Handler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OfferController {
+
+    private static final Logger logger = LoggerFactory.getLogger(OfferController.class);
+
     OfferService offerService = new OfferService();
 
     public Handler getAllOffers = ctx -> {
@@ -78,6 +83,7 @@ public class OfferController {
     };
 
     private String parseError(String message){
+        logger.warn(message);
         return "{\"success\":false, \"message\":\"" + message + "\"}";
     }
 
