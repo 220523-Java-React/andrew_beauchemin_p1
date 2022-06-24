@@ -1,18 +1,37 @@
 package com.revature.controller;
 
+import com.revature.model.Car;
 import com.revature.model.Offer;
+import com.revature.model.Status;
 import com.revature.model.User;
 import com.revature.service.OfferService;
 import io.javalin.http.Handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OfferController {
     OfferService offerService = new OfferService();
 
-    public Handler getAllUsers = ctx -> {
-        List<Offer> offers = offerService.getAllOffers();
-        ctx.json(offers);
+    public Handler getAllOffers = ctx -> {
+        List<Offer> offers = new ArrayList<>();
+        offers = offerService.getAllOffers();
+
+
+        String customerIdString = ctx.queryParam("userid");
+
+
+
+        List<Offer> returnOffers = new ArrayList<>();
+        if(customerIdString != null){
+            int customerId = Integer.parseInt(customerIdString);
+            for(Offer offer: offers){
+                if(offer.getCustomerId() == customerId && offer.getStatus() == Status.OPEN)
+                    returnOffers.add(offer);
+            }
+        }
+
+        ctx.json(returnOffers);
     };
 
     public Handler getOfferById = ctx -> {
@@ -30,6 +49,7 @@ public class OfferController {
     public Handler setOffer = ctx -> {
         Offer offer = ctx.bodyAsClass(Offer.class);
         Offer offerSet = offerService.createOffer(offer);
+
         if(offerSet == null){
             ctx.status(400).json(parseError("Invalid creation"));
         }else{

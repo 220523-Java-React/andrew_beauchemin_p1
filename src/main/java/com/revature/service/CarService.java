@@ -17,6 +17,8 @@ public class CarService {
         return carRepository.getAll();
     }
 
+    //public List<Car> getCarByUser(int customerId){return carRepository.getByCustomerId(customerId);}
+
     public Car createCar(Car car){return carRepository.create(car);}
 
 
@@ -27,5 +29,7 @@ public class CarService {
     public boolean deleteCarById(int id){
         return carRepository.deleteById(id);
     }
+
+
 
 }

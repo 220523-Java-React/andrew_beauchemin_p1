@@ -61,8 +61,6 @@ public class UserRepository implements DAO<User> {
                         .setId(results.getInt("id"))
                         .setRole(Role.values()[results.getInt("role_id")]));
 
-
-                User user2 = new User().setFirstName("first");
             }
 
 
@@ -157,5 +155,35 @@ public class UserRepository implements DAO<User> {
 
 
         return false;
+    }
+
+    public User getByUsername(String username){
+        String sql = "select * from users where username = ?";
+
+        try(Connection connection = ConnectionUtility.getConnection()){
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, username);
+
+            ResultSet results = stmt.executeQuery();
+
+            if(results.next()){
+                // go result and build user based on result
+                return new User()
+                        .setLastName(results.getString("last_name"))
+                        .setUsername(results.getString("username"))
+                        .setPassword(results.getString("password"))
+                        .setFirstName(results.getString("first_name"))
+                        .setId(results.getInt("id"))
+                        .setRole(Role.values()[results.getInt("role_id")]);
+
+            }
+
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return null;
+
     }
 }

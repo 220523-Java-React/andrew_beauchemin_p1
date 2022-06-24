@@ -4,7 +4,7 @@
 
 /users = user list
 
-***/users -> As a non-user, I can create a Customer or Employee Account***
+***/register -> As a non-user, I can create a Customer or Employee Account***
 
 /user/{userid} = get user by id
 
@@ -16,9 +16,9 @@
 
 /cars = car list
 
-***/cars?userid-{userid} ->  As a Customer, I can view the Cars that I own***
+***/car_view?userid-{userid} ->  As a Customer, I can view the Cars that I own***
 
-***/cars ->  As a Customer, I can view available Cars on the lot***
+***/car_view ->  As a Customer, I can view available Cars on the lot***
 
 /cars/{carid} = get car by id
 

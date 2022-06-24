@@ -54,6 +54,7 @@ public class OfferRepository implements DAO<Offer>{
             while(results.next()){
                 // go through each result, build a User object for that data, add that user object the users list
                 offers.add(new Offer()
+                        .setId(results.getInt("id"))
                         .setAmount(results.getFloat("amount"))
                         .setCustomerId(results.getInt("customer_id"))
                         .setCarID(results.getInt("car_id"))
@@ -84,6 +85,7 @@ public class OfferRepository implements DAO<Offer>{
             if(results.next()) {
                 // there better only be one user or primary key isnt working
                 Offer resultOffer = new Offer()
+                        .setId(results.getInt("id"))
                         .setAmount(results.getFloat("amount"))
                         .setCustomerId(results.getInt("customer_id"))
                         .setCarID(results.getInt("car_id"))

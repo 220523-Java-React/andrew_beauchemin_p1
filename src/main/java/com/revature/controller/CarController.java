@@ -5,13 +5,26 @@ import com.revature.model.User;
 import com.revature.service.CarService;
 import io.javalin.http.Handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarController {
     CarService carService = new CarService();
 
     public Handler getAllCars = ctx -> {
-        List<Car> cars = carService.getAllCars();
+        String customerIdString = ctx.queryParam("userid");
+
+
+        List<Car> cars1 = carService.getAllCars();
+        List<Car> cars = new ArrayList<>();
+        if(customerIdString != null){
+            int customerId = Integer.parseInt(customerIdString);
+            for(Car car: cars1){
+                if(car.getOwnerId() == customerId)
+                    cars.add(car);
+            }
+        }
+
         ctx.json(cars);
     };
 
